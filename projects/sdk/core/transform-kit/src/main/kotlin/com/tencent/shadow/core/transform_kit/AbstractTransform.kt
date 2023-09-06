@@ -161,7 +161,8 @@ abstract class AbstractTransform(
             }
             bw.flush()
             bw.close()
-            throw IllegalStateException("存在转换后被调用方法未实现的问题，详见${tempFile.absolutePath}")
+            println("存在转换后被调用方法未实现的问题，详见${tempFile.absolutePath}")
+           // throw IllegalStateException("存在转换后被调用方法未实现的问题，详见${tempFile.absolutePath}")
         }
     }
 

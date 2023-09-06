@@ -4,8 +4,11 @@ android {
     compileSdkVersion project.COMPILE_SDK_VERSION
 }
 
-def sdkPath = android.sdkComponents.getSdkDirectory().get().asFile.absolutePath
+//def sdkPath = android.sdkComponents.getSdkDirectory().get().asFile.absolutePath
+//def androidJarPath = new File(sdkPath, "platforms/${android.compileSdkVersion}/android.jar")
+def sdkPath = "/Users/manjiale/Library/Android/sdk"//android.sdkComponents.getSdkDirectory().get().asFile.absolutePath
 def androidJarPath = new File(sdkPath, "platforms/${android.compileSdkVersion}/android.jar")
+
 
 if (!androidJarPath.exists()) {
     println("File $androidJarPath not exists!")

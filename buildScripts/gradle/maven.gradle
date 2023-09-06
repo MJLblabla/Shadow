@@ -90,7 +90,7 @@ def sourceJar(String name, String path) {
     }
 }
 
-def publicationVersion = project.ARTIFACT_VERSION
+def publicationVersion = "v1.0"
 def coreGroupId = 'com.tencent.shadow.core'
 def corePath = 'projects/sdk/core'
 def dynamicGroupId = 'com.tencent.shadow.dynamic'
@@ -464,7 +464,9 @@ publishing {
                 url "https://maven.pkg.github.com/" + "${System.env.GITHUB_REPOSITORY}".toLowerCase()
             }
         } else {
-            mavenLocal()
+            mavenLocal {
+                url = file(rootDir.absolutePath+'/maven')
+            }
         }
     }
 }

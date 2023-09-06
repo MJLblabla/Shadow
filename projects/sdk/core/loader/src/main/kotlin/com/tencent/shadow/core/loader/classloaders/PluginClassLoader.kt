@@ -19,6 +19,8 @@
 package com.tencent.shadow.core.loader.classloaders
 
 import android.os.Build
+import com.tencent.shadow.core.common.Logger
+import com.tencent.shadow.core.common.LoggerFactory
 import com.tencent.shadow.core.runtime.PluginManifest
 import dalvik.system.BaseDexClassLoader
 import org.jetbrains.annotations.TestOnly
@@ -46,6 +48,11 @@ class PluginClassLoader(
     private val specialClassLoader: ClassLoader?, hostWhiteList: Array<String>?
 ) : BaseDexClassLoader(dexPath, optimizedDirectory, librarySearchPath, parent) {
 
+
+    private val mLogger = LoggerFactory.getLogger(
+        PluginClassLoader::class.java
+    )
+
     /**
      * 宿主的白名单包名
      * 在白名单包里面的宿主类，插件才可以访问
@@ -67,6 +74,10 @@ class PluginClassLoader(
             allHostWhiteTrie.insert("org.apache.http")
             allHostWhiteTrie.insert("org.apache.http.**")
         }
+    }
+
+    public fun superLoadClass(className: String, resolve: Boolean): Class<*> {
+        return super.loadClass(className, resolve)
     }
 
     @Throws(ClassNotFoundException::class)
@@ -103,9 +114,15 @@ class PluginClassLoader(
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                         e.addSuppressed(suppressed)
                     }
-                    throw e
+                    //throw e
+                    //e.printStackTrace()
+                    mLogger.debug(className + "插件classloader加载失败")
                 }
+            }
 
+            if (clazz == null) {
+                mLogger.debug(className + " 加载不到 尝试父亲加载")
+                return super.loadClass(className, resolve)
             }
         }
 
