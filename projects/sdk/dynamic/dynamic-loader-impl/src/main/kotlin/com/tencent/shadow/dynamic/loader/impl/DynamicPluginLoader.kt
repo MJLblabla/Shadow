@@ -197,7 +197,11 @@ internal class DynamicPluginLoader(hostContext: Context, uuid: String) {
     @Synchronized
     fun startActivityInPluginProcess(intent: Intent) {
         mUiHandler.post {
-            mContext.startActivity(intent)
+            try {
+                mContext.startActivity(intent)
+            }catch (e:java.lang.Exception){
+                e.printStackTrace()
+            }
         }
     }
 
