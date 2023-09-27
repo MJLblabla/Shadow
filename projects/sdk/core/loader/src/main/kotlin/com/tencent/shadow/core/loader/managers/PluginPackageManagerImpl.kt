@@ -22,6 +22,7 @@ import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.*
+import android.os.Build
 import com.tencent.shadow.core.runtime.PluginPackageManager
 
 @SuppressLint("WrongConstant")
@@ -44,6 +45,26 @@ internal class PluginPackageManagerImpl(
             val packageInfo = hostPackageManager.getPackageArchiveInfo(pluginArchiveFilePath, flags)
             if (packageInfo != null) {
                 packageInfo.applicationInfo = getPluginApplicationInfo(flags)
+                packageInfo.permissions = hostPackageInfo.permissions
+                packageInfo.requestedPermissions = hostPackageInfo.requestedPermissions
+            }
+            packageInfo
+        } else {
+            hostPackageInfo
+        }
+    }
+
+    @SuppressLint("NewApi")
+    override fun getPackageInfo(
+        packageName: String,
+        flags: PackageManager.PackageInfoFlags
+    ): PackageInfo? {
+        val hostPackageInfo = hostPackageManager.getPackageInfo(packageName, flags)
+        return if (packageName.isPlugin()) {
+            val packageInfo = hostPackageManager.getPackageArchiveInfo(pluginArchiveFilePath, flags)
+            if (packageInfo != null) {
+                //todo
+                packageInfo.applicationInfo = getPluginApplicationInfo(flags.value.toInt())
                 packageInfo.permissions = hostPackageInfo.permissions
                 packageInfo.requestedPermissions = hostPackageInfo.requestedPermissions
             }

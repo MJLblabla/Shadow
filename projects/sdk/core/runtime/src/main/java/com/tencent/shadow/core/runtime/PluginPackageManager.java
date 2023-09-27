@@ -21,6 +21,7 @@ public interface PluginPackageManager {
     ProviderInfo getProviderInfo(ComponentName component, int flags);
 
     PackageInfo getPackageInfo(String packageName, int flags);
+    PackageInfo getPackageInfo(String packageName, android.content.pm.PackageManager.PackageInfoFlags flags);
 
     ProviderInfo resolveContentProvider(String name, int flags);
 

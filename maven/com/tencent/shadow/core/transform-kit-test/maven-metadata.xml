@@ -3,13 +3,14 @@
   <groupId>com.tencent.shadow.core</groupId>
   <artifactId>transform-kit-test</artifactId>
   <versioning>
-    <latest>v1.2</latest>
-    <release>v1.2</release>
+    <latest>v1.3</latest>
+    <release>v1.3</release>
     <versions>
       <version>v1.0</version>
       <version>v1.1</version>
       <version>v1.2</version>
+      <version>v1.3</version>
     </versions>
-    <lastUpdated>20230927023259</lastUpdated>
+    <lastUpdated>20230927062241</lastUpdated>
   </versioning>
 </metadata>

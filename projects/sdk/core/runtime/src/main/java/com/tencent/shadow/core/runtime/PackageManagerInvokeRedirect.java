@@ -86,4 +86,8 @@ public class PackageManagerInvokeRedirect {
         return getPluginPackageManager(classLoaderOfInvokeCode).resolveService(intent, flags);
     }
 
+    public static PackageInfo getPackageInfo(java.lang.ClassLoader c, java.lang.String pn, android.content.pm.PackageManager.PackageInfoFlags flags) {
+        return getPluginPackageManager(c).getPackageInfo(pn, flags);
+    }
+
 }
