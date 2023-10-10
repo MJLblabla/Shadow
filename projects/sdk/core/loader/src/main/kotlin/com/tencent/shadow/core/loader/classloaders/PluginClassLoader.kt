@@ -122,7 +122,9 @@ class PluginClassLoader(
 
             if (clazz == null) {
                 mLogger.debug(className + " 加载不到 尝试父亲加载")
-                return super.loadClass(className, resolve)
+                val ret = super.loadClass(className, resolve)
+                mLogger.debug(className + " 加载不到 尝试父亲加载  ret  ${ret == null}")
+                return ret
             }
         }
 
